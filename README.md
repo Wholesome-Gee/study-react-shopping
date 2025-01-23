@@ -205,3 +205,15 @@
   ```
 
 ---
+
+## 리액트 라우터 3 : URL 파라미터로 상세페이지 100개 만들기..🔥
+
+- URL 파라미터 사용방법 = `<Route path="detail/:id" element={<Detail/>}/>`
+  - 유저가 'localhost:0000/detail/123' url로 접속시 Detail Component에 123이 URL파라미터로 전송됨
+  ```jsx
+  // Detail.jsx
+  import { useParams } from "react-router-dom";
+  export default function Detail(props) {
+    let { id } = useParams(); // id = 123
+  }
+  ```
