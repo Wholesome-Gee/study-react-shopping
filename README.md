@@ -41,4 +41,65 @@
     }
     ```
 
-  ***
+---
+
+## 이미지 넣는 법 & public 폴더 이용하기..🔥
+
+- 이미지 넣는법
+  - css 에서 이미지 넣기 ( bg.jpg위치: /src/images )
+    ```css
+    .main-bg {
+      background-image: url("./images/bg.jpg");
+    }
+    ```
+  - html 에서 이미지 넣기 1 ( bg.jpg위치: /src/images )
+    ```js
+    import bgImg from './images/bg.jpg';
+    function App() {
+      return (
+        <>
+          <div style={{ backgroundImage:`url(${bgImg})`}}
+        </>
+      )
+    }
+    ```
+- public 폴더 이용하기
+  - html 에서 이미지 넣기 2 ( bg.jpg위치: /public/images)
+    - 루트경로에 **.env** 파일 생성
+    - .env 파일에 `VITE_PUBLIC_URL=/images/` 추가
+      ```js
+      import bgImg from "./images/bg.jpg";
+      function App() {
+        return (
+          <>
+            <img src={import.meta.env.VITE_PUBLIC_URL + "bg.jpg"} alt="bgImg" />
+          </>
+        );
+      }
+      ```
+- BootStrap에서 grid 기능 사용할 때, `import { Container, Row, Col } from 'react-bootstrap'`
+  ```js
+  import { Navbar, Container, Nav, Row, Col } from "react-bootstrap";
+  function App() {
+    return (
+      <>
+        <Container>
+          <Row>
+            <Col xs="4" md="4" lg="4">
+              <p> xs:0px~767px, md:768px~991px, lg: 992px~ </p>
+            </Col>
+            <Col xs="4" md="4" lg="4">
+              <p> xs:0px~767px, md:768px~991px, lg: 992px~ </p>
+            </Col>
+            <Col xs="4" md="4" lg="4">
+              <p> xs:0px~767px, md:768px~991px, lg: 992px~ </p>
+            </Col>
+            // 한 행당 기본 12열로 나누어져있음
+          </Row>
+        </Container>
+      </>
+    );
+  }
+  ```
+
+---
