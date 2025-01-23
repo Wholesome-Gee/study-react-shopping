@@ -1,9 +1,10 @@
 
-import { Navbar,Container,Nav, Row, Col } from 'react-bootstrap'
+import { Navbar,Container,Nav, Row } from 'react-bootstrap'
 import './App.css'
 import bgImg from './img/bg.png'
 import data from './data'
 import { useState } from 'react'
+import Card from './card'
 
 function App() {
   let [shoes] = useState(data)
@@ -23,21 +24,13 @@ function App() {
 
       <Container>
       <Row>
-        <Col md="4">
-          <img src={import.meta.env.VITE_PUBLIC_URL+'shoes1.jpg'} alt="shoes1" width="80%"/>
-          <h4>{shoes[0].title}</h4>
-          <p>{shoes[0].content}</p>
-        </Col>
-        <Col md="4">
-          <img src={import.meta.env.VITE_PUBLIC_URL+'shoes2.jpg'} alt="shoes2" width="80%"/>
-          <h4>{shoes[1].title}</h4>
-          <p>{shoes[1].content}</p>
-        </Col>
-        <Col md="4">
-          <img src={import.meta.env.VITE_PUBLIC_URL+'shoes3.jpg'} alt="shoes3" width="80%"/>
-          <h4>{shoes[2].title}</h4>
-          <p>{shoes[2].content}</p>
-        </Col>
+        {
+          shoes.map((shoe,index)=>{
+            return (
+              <Card shoe={shoe} index={index+1} key={index}/>
+            )
+          })
+        }
         {/* xs:0px~767px, md:768px~991px, lg:992px~ */}
       </Row>
     </Container>
