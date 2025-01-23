@@ -103,3 +103,27 @@
   ```
 
 ---
+
+## 코드 길어지면 import export 하면 됩니다..🔥
+
+- 너무 긴 코드는 src폴더 내에 따로 jsx파일로 만들어서 Component화 시키고 export
+
+  ```jsx
+  // /src/data.jsx
+
+  // export default는 한개, export는 여러개 변수/함수 export가능
+
+  export function LongCode() {
+    // 함수 실행문
+  }
+
+  export let data = ["a", "b", "c"];
+  ```
+
+- Component import 하기
+  ```jsx
+  // App.jsx
+  import { LongCode, data } from "./data";
+  ```
+
+---
