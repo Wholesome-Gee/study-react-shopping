@@ -217,3 +217,34 @@
     let { id } = useParams(); // id = 123
   }
   ```
+
+## styled-components 쓰면 CSS 파일 없어도 되는데..🔥
+
+- styled-components은 CSS를 jsx파일 안에서 정의 할 수 있다.
+- `npm i styled-components`
+- jsx 파일에서 `import styled from 'styled-components'`
+
+  ```jsx
+  // App.jsx
+  import styled from "styled-components";
+  export let ColorBtn = styled.button`
+    background-color: ${(props) => props.color}
+    color: ${(props) => (props.color == "yellow" ? "black" : "white")}
+    padding: 10px
+  `;
+  // styled-components는 Components이며 props를 받을 수 있다.
+  // styled-components는 Components이며 export를 할 수 있다.
+  // styled-components는 javascript 문법을 사용할 수 있다.
+  let NewBtn = styled(ColorBtn)`
+    padding: 20px;
+  `;
+  // styled-components의 복사 방법
+  function App() {
+    return (
+      <>
+        <ColorBtn color="yellow">ColorBtn</ColorBtn>
+        <NewBtn color="red">NewBtn</NewBtn>
+      </>
+    );
+  }
+  ```

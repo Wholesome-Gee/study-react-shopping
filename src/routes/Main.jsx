@@ -9,6 +9,11 @@ export default function Main(props) {
     <>
       <div className="main-bg" style={{ backgroundImage: `url(${bgImg})`}}></div>
       <Container>
+        <button onClick={()=>{
+          let copy = [...shoes]
+          copy.sort((a,b) => a.title > b.title ? 1:-1)
+          props.setShoes(copy)
+          }}>가나다순 정렬</button>
         <Row>
           {
             shoes.map((shoe,index)=>{
