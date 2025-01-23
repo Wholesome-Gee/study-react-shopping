@@ -127,3 +127,32 @@
   ```
 
 ---
+
+## 리액트 라우터 1 : 셋팅이랑 기본 라우팅..🔥
+
+- 리액트 Router는 여러 페이지를 만들때 사용
+
+  - `npm i react-router-dom@6`
+  - main.jsx에 **\<App/>** 을 **\<BrowserRouter>** 로 감싸준다.
+  - App.jsx에 Routes, Route, Link를 import하고 Routes 사용
+
+    ```jsx
+    import { Routes, Route, Link } from "react-router-dom";
+
+    function App() {
+      return (
+        <>
+          <Link to="/"> Home </Link>
+          <Link to="/login"> Login </Link>
+          // 중간코드 생략
+          <Routes>
+            <Route path="/detail" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            // path는 url 경로, element는 경로에 접속했을 때 보여줄 html
+          </Routes>
+        </>
+      );
+    }
+    ```
+
+---
