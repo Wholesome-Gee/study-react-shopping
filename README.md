@@ -149,10 +149,59 @@
             <Route path="/detail" element={<Home />} />
             <Route path="/login" element={<Login />} />
             // path는 url 경로, element는 경로에 접속했을 때 보여줄 html
+            // path="*" 는 지정한 route외에 다른 url 입력 시 적용되며 보통 404page를 보여줌
+            // <Route path="*" element={<div>404page</div} />
+
           </Routes>
         </>
       );
     }
     ```
+
+---
+
+## 리액트 라우터 2 : navigate, nested routes, outlet..🔥
+
+- navigate()는 페이지 이동을 도와주는 React router 함수
+
+  - ( )안에 url 경로 및 -1(이전페이지), 1(다음페이지)을 쓸 수 있다.
+
+  ```jsx
+  import { useNavigate } from "react-router-dom";
+  function App () {
+    let navigate = useNavigate()
+    return (
+      <button onClick={() => {navigate(-1);}}>Pre</button>
+      <button onClick={() => {navigate("/");}}>Home</button>
+      <button onClick={() => {navigate(1);}}>Next</button>
+  )}
+  ```
+
+- nested routes는 route안의 route를 의미한다.
+- nested routes를 사용할 땐 부모 Route에 **\<Outlet>** 을 설정해줘야 한다
+  - outlet은 nested routes가 보여질 위치를 의미한다.
+- nested routes는 부모 route와 함께 보여진다.
+
+  ```jsx
+  // App.jsx
+  <Routes>
+    <Route path="/about" element={<About />}>
+      <Route path="member" element={<div>member 페이지</div>}
+      // /about/member
+      <Route path="location" element={<div>location 페이지</div>}
+      // /about/location
+    </Route>
+  </Routes>
+
+  // About.jsx
+
+  import { Outlet } from 'react-router-dom';
+  export default function About () {
+    return (
+      <div> About page </div>
+      <Outlet></Outlet>
+    )
+  }
+  ```
 
 ---
