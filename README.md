@@ -248,3 +248,25 @@
     );
   }
   ```
+
+## Lifecycle과 useEffect 1..🔥
+
+- Component의 LifeCycle
+  - mount = Component가 실행
+  - update = Component가 수정
+  - unmount = Component가 종료
+- useEffect()는 Component가 mount,update,unmount될 때 부가기능(side Effect)를 실행해준다.
+- useEffect()는 jsx가 모두 렌더링 된 후 실행된다.
+- useEffect()는 시간이 오래걸리는 연산작업, 서버에서 데이터 가져오는 작업, 타이머(setTimeout)작업에 유용하다.
+
+  ```jsx
+  import { useEffect } from "react";
+  function App() {
+    useEffect(() => {
+      for (let i = 0; i < 10000, i++; ) {
+        console.log(i);
+      }
+    }, []);
+    return <div>html까지 모두 렌더링 후 useEffect가 실행됩니다.</div>;
+  }
+  ```
