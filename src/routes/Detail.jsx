@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components'
@@ -22,10 +23,17 @@ export default function Detail (props) {
   let {id} = useParams() // 0 or 1 or 2
   let shoe = shoes.find((shoe)=> shoe.id == id )
   // console.log(shoe);
-  
+  let [alert,setAlert] = useState(true)
+  useEffect(()=>{
+    setTimeout(()=>{
+      setAlert(false)
+    },2000)
+  },[])
+
   if (shoe) {
     return (
       <Container>
+        { alert ? <div className="alert alert-warning">2초이내 구매시 할인</div> : null}
         <Box>
           <ColorBtn color="yellow">ColorBtn</ColorBtn>
           <NewBtn color="red">NewBtn</NewBtn>

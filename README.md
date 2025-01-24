@@ -270,3 +270,18 @@
     return <div>html까지 모두 렌더링 후 useEffect가 실행됩니다.</div>;
   }
   ```
+
+## Lifecycle과 useEffect 2..🔥
+
+- useEffect의 dependency
+  - `useEffect(()=>{})`
+    - Component가 mount/update 시에 useEffect가 실행됨
+  - `useEffect(()=>{},[])`
+    - Component가 mount 시에 useEffect가 실행됨
+  - `useEffect(()=>{},[count])`
+    - Component가 update 시에 useEffect가 실행됨
+  - `useEffect(()=>{ return()=>{ code } })`
+    - Component가 unmount 시에 useEffect가 실행됨
+    - return 다음 코드는 useEffect가 동작되기 전에 먼저 실행된다. = clean up function
+      - data를 받아오거나, 타이머가 설정되어있을때  
+        기존 data요청이나 타이머를 제거하기 위해 사용
