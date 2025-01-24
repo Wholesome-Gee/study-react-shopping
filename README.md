@@ -294,13 +294,14 @@
 
 ---
 
-## 리액트에서 서버와 통신하려면 ajax 1..
+## 리액트에서 서버와 통신하려면 ajax 1..🔥
 
 - `npm i axios`
   ```jsx
   import axios from "axios";
   function App() {
-    let data = axios("severURL")
+    let data = axios
+      .get("severURL")
       .then((response) => {
         return response.data;
       })
@@ -312,3 +313,30 @@
   ```
 
 ---
+
+## 리액트에서 서버와 통신하려면 ajax 2 : post, fetch..🔥
+
+- axios로 post 요청
+  ```jsx
+  import axios from "axios";
+  function App() {
+    let data = axios
+      .post("severURL", { name: "kim" })
+      .then((response) => {
+        console.log(reaponse);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    return <div></div>;
+  }
+  ```
+- axios로 동시에 URL1, URL2에 GET/POST 요청
+
+  ```jsx
+  Promise.all( [axios.get('URL1')], [axios.get('URL2)'])
+  .then((resonse)=>{console.log(response);})
+  .catch((error)=>{console.log(error);})
+  ```
+
+  ***
