@@ -218,6 +218,8 @@
   }
   ```
 
+---
+
 ## styled-components 쓰면 CSS 파일 없어도 되는데..🔥
 
 - styled-components은 CSS를 jsx파일 안에서 정의 할 수 있다.
@@ -249,6 +251,8 @@
   }
   ```
 
+---
+
 ## Lifecycle과 useEffect 1..🔥
 
 - Component의 LifeCycle
@@ -271,6 +275,8 @@
   }
   ```
 
+---
+
 ## Lifecycle과 useEffect 2..🔥
 
 - useEffect의 dependency
@@ -285,3 +291,24 @@
     - return 다음 코드는 useEffect가 동작되기 전에 먼저 실행된다. = clean up function
       - data를 받아오거나, 타이머가 설정되어있을때  
         기존 data요청이나 타이머를 제거하기 위해 사용
+
+---
+
+## 리액트에서 서버와 통신하려면 ajax 1..
+
+- `npm i axios`
+  ```jsx
+  import axios from "axios";
+  function App() {
+    let data = axios("severURL")
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    return <div>{data}</div>;
+  }
+  ```
+
+---

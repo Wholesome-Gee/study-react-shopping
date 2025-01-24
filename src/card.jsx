@@ -10,6 +10,7 @@ export default function Card (props) {
   return ( 
     <>
       <Col md="4" onClick={()=>{navigate('/detail/'+shoe.id)}}>
+      {/* xs:0px~767px, md:768px~991px, lg:992px~ */}
         <img src={import.meta.env.VITE_PUBLIC_URL+`shoes${(shoe.id)+1}.jpg`} alt="shoes1" width="80%"/>
         <h4>{shoe.title}</h4>
         <p>{shoe.content}</p>

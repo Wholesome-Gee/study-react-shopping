@@ -22,7 +22,6 @@ export default function Main(props) {
               )
             })
           }
-          {/* xs:0px~767px, md:768px~991px, lg:992px~ */}
         </Row>
         </Container>    
     </>

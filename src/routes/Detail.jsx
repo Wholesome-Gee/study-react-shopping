@@ -12,6 +12,12 @@ let ColorBtn = styled.button`
 
 let NewBtn = styled(ColorBtn)`
 `
+let Warning = styled.div`
+  background-color: red;
+  color: white;
+  font-size:24px
+`
+
 
 let Box = styled.div`
   background-color : grey;
@@ -30,6 +36,16 @@ export default function Detail (props) {
     },2000)
   },[])
 
+  let [warning,setWarning] = useState(false)
+  let [value,setValue] = useState("")
+
+  useEffect(()=>{
+      if (isNaN(value)){
+        setWarning(true)
+    }    
+  },[value])
+
+
   if (shoe) {
     return (
       <Container>
@@ -42,6 +58,9 @@ export default function Detail (props) {
           <Col md="6">
           <img src={'https://codingapple1.github.io/shop/shoes'+(shoe.id+1)+'.jpg'} width="100%" />
           </Col>
+          { warning ? <Warning>문자는 안돼</Warning> : null}
+          <input type="text"  onChange={(e)=>{ setValue(e.target.value)
+          }} />
           <Col md="6">
           <h4 className="pt-5">{shoe.title}</h4>
           <p>{shoe.content}</p>
