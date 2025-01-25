@@ -334,9 +334,25 @@
 - axios로 동시에 URL1, URL2에 GET/POST 요청
 
   ```jsx
-  Promise.all( [axios.get('URL1')], [axios.get('URL2)'])
-  .then((resonse)=>{console.log(response);})
-  .catch((error)=>{console.log(error);})
+  Promise.all([axios.get("URL1")], [axios.get("URL2")])
+    .then((resonse) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   ```
 
+  ***
+
+## 리액트에서 탭 UI 만들기..🔥
+
+- Component에서 props를 조금 더 쉽게 쓰는법
+  ```jsx
+  // App.jsx
+  <NameComponent name="Wholesome-Gee"
+  function NameComponent({name}) {
+    return <div>{name}</div>
+  }
+  ```
   ***
