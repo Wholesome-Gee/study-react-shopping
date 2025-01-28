@@ -2,7 +2,7 @@
 import { Navbar,Container,Nav, Row } from 'react-bootstrap'
 import './App.css'
 import data from './Data'
-import { useState } from 'react'
+import { createContext, useState } from 'react'
 import Card from './card'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './routes/Detail.jsx'
@@ -10,10 +10,15 @@ import About from './routes/About.jsx'
 import Event from './routes/Event.jsx'
 import Main from './routes/Main.jsx'
 
+//props 전송 없이 자식 component에 state 보내기
+export let Context1 = createContext()
+// Context를 하나 만들어줌 ( context는 state 보관함 )
+
 function App() {
   let [shoes,setShoes] = useState(data)
   let navigate = useNavigate();
   //페이지 이동 도와주는
+  let [재고] = useState([10,11,12])
   
   return (
     <>
@@ -35,8 +40,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Main shoes={shoes} setShoes={setShoes}/>}/>
         
-        <Route path="/detail/:id" element={<Detail shoes={shoes}/>}/>
         
+        <Route path="/detail/:id" element={
+          <Context1.Provider value={{ 재고 }}>
+          <Detail shoes={shoes}/>
+          </Context1.Provider>
+          }/>
+        
+
         <Route path="/about" element={<About/>}>
           <Route path="member" element={<div>멤버임</div>}/>
           <Route path="location" element={<div>위치임</div>}/>

@@ -399,3 +399,41 @@
   ```
 
 ---
+
+## props 싫으면 Context API 써도 됩니다..🔥
+
+- Context는 state를 담는 보관함 개념 ( 중첩되어있는 자식 component들에게 props를 전달 할 수 있음)
+- 그러나, 성능저하 이슈가 있어 잘 쓰진 않고, redux같은 외부 라이브러리를 자주 사용
+
+  ```jsx
+  {createContext} from 'react'
+
+  export let Context1 = createContext() // state 보관함 생성
+  function App () {
+    let [재고] = useState([10,11,12])
+    return(
+      <>
+        <Routes>
+          <Route path="/detail/:id" element={
+            <Context1.Provider value={재고}> // Detail Coponent에 Context 전달
+              <Detail/>
+            </Context1.Provider>
+          }></Route>
+        </Routes>
+      </>
+    )
+  }
+  ```
+
+  ```jsx
+  import { useContext } from "react";
+  import { Context1 } from "../App.jsx";
+
+  let { 재고 } = useContext(Context1);
+  // useContext는 Context 해체 함수
+
+  export default function Detail() {
+    return <div> {재고} </div>;
+    // [10,11,12]
+  }
+  ```

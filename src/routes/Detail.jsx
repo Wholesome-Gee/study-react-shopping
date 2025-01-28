@@ -1,8 +1,9 @@
 /* eslint-disable */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Col, Container, Nav, Row, Tab } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components'
+import { Context1 } from "../App"
 
 let ColorBtn = styled.button`
   background : ${props=>props.color};
@@ -25,6 +26,10 @@ let Box = styled.div`
 `
 
 export default function Detail (props) {
+
+  let {재고} = useContext(Context1)
+  // useContext는 Context 해체함수.. [10,11,12]
+
   let shoes = props.shoes // [{},{},{}]
   let {id} = useParams() // 0 or 1 or 2
   let shoe = shoes.find((shoe)=> shoe.id == id )
@@ -61,6 +66,7 @@ export default function Detail (props) {
 
 
   if (shoe) {
+    console.log(shoe);
     
     return (
       <Container className={`start ${fade}`}>
@@ -96,7 +102,7 @@ export default function Detail (props) {
             <Nav.Link eventKey="link-2" onClick={()=>{setTab(2)}}>버튼2</Nav.Link>
           </Nav.Item>
         </Nav>
-        <TabContent tab={tab} ></TabContent>
+        <TabContent tab={tab} shoe={shoe} ></TabContent>
       </Container>    
     ) 
 
@@ -107,7 +113,7 @@ export default function Detail (props) {
 
 // Component
 
-function TabContent({tab}){
+function TabContent({tab, shoe}){
 
   let [fade, setFade] = useState('')
   useEffect(()=>{
@@ -121,7 +127,7 @@ function TabContent({tab}){
   },[tab])
   return (
     <div className={`start ${fade}`}>
-    {[<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][tab]}
+    {[<div>{shoe.title}</div>,<div>{shoe.content}</div>,<div>{shoe.price}</div>][tab]}
     </div>
   )
 }
