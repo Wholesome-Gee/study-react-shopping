@@ -1,4 +1,14 @@
+import { useSelector } from "react-redux"
+
 export default function Cart() {
+
+  let state = useSelector((state)=>{ return state })
+  // 모든 state 불러오기, 원하는것만 가져오려면 state.원하는state명
+  console.log(state.user);
+  console.log(state.stock);
+  
+  
+
   return (
     <div>
       <table className="table">

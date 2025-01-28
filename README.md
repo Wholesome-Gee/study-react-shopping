@@ -494,3 +494,47 @@
     ```
 
     - App.jsx와 그 하위 Component에서 store에 담긴 state들을 꺼내 쓸 수 있음
+
+---
+
+## Redux2 : store에 state 보관하고 쓰는 법..🔥
+
+- store에 state 만들기
+
+  ```jsx
+  import { configureStore, createSlice } from "@reduxjs/toolkit";
+
+  // state를 slice라고 함. slice 생성
+  let name = createSlice({
+    name: "name",
+    initialState: "kim",
+  });
+
+  let arr1 = createSlice({
+    name: "arr1",
+    initialState: [10, 11, 12],
+  });
+
+  // slice export
+  export default configureStore({
+    reducer: {
+      name: name.reducer,
+      arr1: arr1.reducer,
+    },
+  });
+  ```
+
+  ```jsx
+  import { useSelector } from "react-redux";
+  let state = useSelector((state) => {
+    return state;
+  });
+  //모든 state 불러오기
+
+  let state = useSelector((state) => {
+    return state.name;
+  });
+  //특정 state 불러오기
+  ```
+
+---
