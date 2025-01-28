@@ -356,3 +356,46 @@
   }
   ```
   ***
+
+## 멋있게 컴포넌트 전환 애니메이션 주는 법 (transition)..🔥
+
+- 애니메이션 적용하는 방법
+
+  - 애니메이션 동작 전 className 만들기
+  - 애니메이션 동작 후 className 만들기 (transition 포함)
+  - 원하는곳에 애니메이션 동작 후 className 부착해주기
+
+  ```css
+  start {
+    opacity: 0;
+  }
+  end {
+    opacity: 1;
+  }
+  ```
+
+  ```jsx
+  function TabContent({ tab }) {
+    let [fade, setFade] = useState("");
+
+    useEffect(() => {
+      let a = setTimeout(() => {
+        setFade("end");
+      }, 10);
+      // react의 automatic batching 기능때문에 setTimeout 함수로 setFade의 실행시점을 늦춰준다.
+      // automatic batching은 html 재렌더링을 일으키는 state함수가 중첩되어 있으면
+      // state함수마다 재렌더링을 실행하지 않고, 모든 인접 state함수 실행 후 마지막 state함수에서만 재렌더링을 1회 하는 개념
+      return () => {
+        clearTimeout(a);
+        setFade("");
+      };
+    }, [tab]);
+    return (
+      <div className={`start ${fade}`}>
+        {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+      </div>
+    );
+  }
+  ```
+
+---

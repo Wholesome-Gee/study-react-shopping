@@ -39,6 +39,7 @@ export default function Detail (props) {
   let [warning,setWarning] = useState(false)
   let [value,setValue] = useState("")
   let [tab,setTab] = useState(0)
+  let [fade,setFade] = useState('')
 
   useEffect(()=>{
     // '1'
@@ -48,11 +49,21 @@ export default function Detail (props) {
     }
   },[value])
 
+  useEffect(()=>{
+    let a = setTimeout(() => {
+      setFade('end')  
+    }, 10);
+    return ()=>{
+      clearTimeout(a)
+      setFade('')
+    }
+  },[])
+
 
   if (shoe) {
     
     return (
-      <Container>
+      <Container className={`start ${fade}`}>
         { popUp ? <div className="alert alert-warning">2초이내 구매시 할인</div> : null}
         <Box>
           <ColorBtn color="yellow">ColorBtn</ColorBtn>
@@ -97,8 +108,21 @@ export default function Detail (props) {
 // Component
 
 function TabContent({tab}){
+
+  let [fade, setFade] = useState('')
+  useEffect(()=>{
+    let a = setTimeout(() => {
+      setFade('end')
+    }, 10);
+    return ()=>{
+      clearTimeout(a)
+      setFade('')
+    }
+  },[tab])
   return (
-    [<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][tab]
+    <div className={`start ${fade}`}>
+    {[<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][tab]}
+    </div>
   )
 }
 //   if( tab == 0 ){
