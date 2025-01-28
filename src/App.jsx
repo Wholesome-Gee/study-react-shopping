@@ -3,12 +3,13 @@ import { Navbar,Container,Nav, Row } from 'react-bootstrap'
 import './App.css'
 import data from './Data'
 import { createContext, useState } from 'react'
-import Card from './card'
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './routes/Detail.jsx'
 import About from './routes/About.jsx'
 import Event from './routes/Event.jsx'
 import Main from './routes/Main.jsx'
+import Cart from './routes/Cart.jsx'
+
 
 //props 전송 없이 자식 component에 state 보내기
 export let Context1 = createContext()
@@ -47,6 +48,7 @@ function App() {
           </Context1.Provider>
           }/>
         
+        <Route path="/cart" element={<Cart/>}/>
 
         <Route path="/about" element={<About/>}>
           <Route path="member" element={<div>멤버임</div>}/>

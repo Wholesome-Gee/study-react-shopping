@@ -437,3 +437,60 @@
     // [10,11,12]
   }
   ```
+
+---
+
+## 장바구니 페이지 만들기 & Redux 1 : Redux Toolkit 설치..🔥
+
+- html table 만들기
+  ```html
+  <!-- thead = 제목줄, tbody = 본문줄 -->
+  <!-- tr = 가로줄, th는 세로줄(제목), td는 세로줄(본문) -->
+  <table className="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">상품명</th>
+        <th scope="col">수량</th>
+        <th scope="col">변경하기</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>안녕</td>
+        <td>안녕</td>
+        <td>안녕</td>
+      </tr>
+    </tbody>
+  </table>
+  ```
+- Redux는 state를 모아두는 저장소(store) ( redux를 사용하면 props를 안써도 됨 )
+- Redux 세팅
+
+  - `npm i @reduxjs/toolkit react-redux`
+  - /src/store.js 생성
+    ```jsx
+    import { configureStore } from "@reduxjs/toolkit";
+    export default configureStore({
+      reducer: {},
+    });
+    ```
+  - main.jsx의 BrowserRouter를 Provider로 감싸기
+
+    ```jsx
+    import store from "./store.js";
+    import { Provider } from "react-redux"; // react-redux에서 Provider import
+
+    createRoot(document.getElementById("root")).render(
+      <StrictMode>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Provider>
+      </StrictMode>
+    );
+    ```
+
+    - App.jsx와 그 하위 Component에서 store에 담긴 state들을 꺼내 쓸 수 있음
