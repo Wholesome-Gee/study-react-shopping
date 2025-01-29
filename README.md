@@ -538,3 +538,38 @@
   ```
 
 ---
+
+## Redux3 : store의 state변경하는 법..🔥
+
+- store의 state 변경하기 Step
+
+  - store.js에 state변경 함수 정의
+    ```jsx
+    //store.js
+    let user = createSlice({
+      name: "user",
+      initialState: "kim",
+      reducers: {
+        // reducers에 state변경 함수 정의
+        changeName(state) {
+          // state는 기존 state 값이 담겨있다.
+          return "john " + state; // = john kim
+        },
+      },
+    });
+    ```
+  - 정의 된 함수를 export
+    ```jsx
+    //store.js
+    export let { changeName } = user.actions;
+    //user state에 있는 changeName 함수를 export
+    ```
+  - Component에서 함수 import 및 useDispatch()
+
+    ```jsx
+    //Component.jsx
+    import { useDispatch } from "react-redux";
+    import { chageName } from "../store.js";
+    let dispatch = useDispatch();
+    // useDispatch는 store.js에 요청을 보내주는 함수
+    ```
