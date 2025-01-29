@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { useDispatch, useSelector } from "react-redux"
-import { changeCount, changeUser } from "../store";
+import { changeName, increase } from "../store/userSlice";
 
 export default function Cart() {
 
@@ -9,13 +9,14 @@ export default function Cart() {
 
   let dispatch = useDispatch()
   // store.js에 변경요청해주는 함수
-  console.log(state.user);
-  console.log(state.cart);
+  // console.log(state.user);
+  // console.log(state.cart);
 
   return (
     <div>
+      <h6>{state.user.name} {state.user.age}의 장바구니</h6>
+      <button onClick={()=>{dispatch(increase(10))}}>버튼</button>
 
-      {state.user}의 장바구니
       <table className="table">
         <thead>
           <tr>
@@ -29,12 +30,12 @@ export default function Cart() {
           {
             state.cart.map((item,index)=>{
               return (
-                <tr>
-                  <th scope="row">{index+1}</th>
+                <tr key= {index}>
+                  <th scope="row">{state.cart[index].id}</th>
                   <td>{state.cart[index].name}</td>
                   <td>{state.cart[index].count}</td>
                   <td><button onClick={()=>{
-                    dispatch(changeCount())
+                    dispatch(changeName())
                   }}>+</button></td>
                 </tr>
               )

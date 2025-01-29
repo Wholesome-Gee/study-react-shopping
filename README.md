@@ -572,4 +572,64 @@
     import { chageName } from "../store.js";
     let dispatch = useDispatch();
     // useDispatch는 store.js에 요청을 보내주는 함수
+    return (
+      <button
+        onClick={() => {
+          dispatch(changeName());
+        }}
+      ></button>
+    );
     ```
+
+---
+
+## Redux 4 : state가 object/array일 경우 변경하는 법..🔥
+
+- redux의 state 변경함수에 parameter를 전달할 수 있다.
+
+  ```jsx
+  //store.js
+  let user = createSlice({
+    name: "user",
+    initialState: { name: 'kim', age:20}
+    reducers: {
+      changeName(state,action) {
+        // action은 parameter 박스
+        state.name = 'park'
+      },
+      increase(state,action) {
+        state.age += action.payload    // increase(50)
+        // payload는 전달받은 parameter박스를 open해주는 역할
+      }
+    },
+  });
+
+  export let { changeName, increase } = user.actions
+  ```
+
+- store.js에 적힌 state들도 파일 분할 할 수 있다.
+
+  - /src/store/userSlice.jsx
+
+    ```jsx
+    /* eslint-disable */
+    import { createSlice } from "@reduxjs/toolkit";
+
+    let user = createSlice({
+      name: "user",
+      initialState: { name: "kim", age: 20 },
+      reducers: {
+        changeName(state) {
+          state.name = "park";
+        },
+        increase(state, action) {
+          state.age += action.payload;
+        },
+      },
+    });
+
+    export default user;
+    export let { changeName, increase } = user.actions;
+    ```
+
+    - store.js에서 `import user from './store/userSlice'` 이런식으로 경로 지정
