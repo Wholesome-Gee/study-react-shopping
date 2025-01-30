@@ -796,3 +796,66 @@
       );
     }
     ```
+
+## 리액트에서 자주쓰는 if문 작성패턴 5개..🔥
+
+- Component 안에서 쓰는 if/else
+  ```js
+  function Component() {
+    if (true) {
+      return <div>참</div>;
+    } else {
+      return null;
+    }
+    // else 생략가능
+  }
+  ```
+- Component 안에서 쓰는 &&연산자
+  ```js
+  function Component() {
+    return (
+      { filter && <div>참</div> } // filter가 참이면 <div>참</div>실행, 거짓이면 null
+    )
+  }
+  ```
+- Component 안에서 쓰는 switch / case
+  ```js
+  function Component() {
+    let [state, setState] = useState("apple");
+    switch (state) {
+      case "apple":
+        return <div>{apple + " is red."}</div>;
+      case "banana":
+        return <div>{banana + " is yellow."}</div>;
+      default:
+        return <div>orange is orange</div>;
+    }
+  }
+  ```
+- JSX안에서 쓰는 삼항연산자
+  ```js
+  function Component(){
+    return (
+      {
+        filter ? <div>참</div> : ( filter2 ? <div>참</div> : null )
+      }
+    )
+  }
+  ```
+- JSX안에서 쓰는 obj/arr 자료형 응용
+  ```js
+  function Component(){
+    let [state, setState] = useState("apple")
+    return (
+      {
+        {
+          apple : <div>red</div>,
+          banana: <div>yellow</div>,
+          orange: <div>orange</div>
+        }[state]
+      }
+    )
+  }
+  ```
+
+---

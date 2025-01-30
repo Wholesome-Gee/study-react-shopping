@@ -8,8 +8,8 @@ import { useDispatch } from "react-redux";
 import { addCart } from "../store/cartSlice";
 
 let ColorBtn = styled.button`
-  background : ${props=>props.color};
-  color: ${ props => props.color == 'yellow' ? 'black' : 'white'};
+  background : ${props => props.color};
+  color: ${props => props.color == 'yellow' ? 'black' : 'white'};
   padding : 10px;
 `
 
@@ -27,90 +27,91 @@ let Box = styled.div`
   padding: 20px;
 `
 
-export default function Detail (props) {
+export default function Detail(props) {
 
   // let {재고} = useContext(Context1)
   // useContext는 Context 해체함수.. [10,11,12]
 
   let shoes = props.shoes // [{},{},{}]
-  let {id} = useParams() // 0 or 1 or 2
-  let shoe = shoes.find((shoe)=> shoe.id == id )
+  let { id } = useParams() // 0 or 1 or 2
+  let shoe = shoes.find((shoe) => shoe.id == id)
   // console.log(shoe);
-  let [popUp,setPopUp] = useState(true)
-  useEffect(()=>{
-    setTimeout(()=>{
+  let [popUp, setPopUp] = useState(true)
+  useEffect(() => {
+    setTimeout(() => {
       setPopUp(false)
-    },2000)
-  },[])
+    }, 2000)
+  }, [])
 
-  let [warning,setWarning] = useState(false)
-  let [value,setValue] = useState("")
-  let [tab,setTab] = useState(0)
-  let [fade,setFade] = useState('')
+  let [warning, setWarning] = useState(false)
+  let [value, setValue] = useState("")
+  let [tab, setTab] = useState(0)
+  let [fade, setFade] = useState('')
 
   let dispatch = useDispatch()
 
-  useEffect(()=>{
+  useEffect(() => {
     // '1'
-      if (isNaN(value)){
-        alert('문자는 안됩니다')
-        setValue('')
+    if (isNaN(value)) {
+      alert('문자는 안됩니다')
+      setValue('')
     }
-  },[value])
+  }, [value])
 
-  useEffect(()=>{
+  useEffect(() => {
     let a = setTimeout(() => {
-      setFade('end')  
+      setFade('end')
     }, 10);
-    return ()=>{
+    return () => {
       clearTimeout(a)
       setFade('')
     }
-  },[])
+  }, [])
 
 
   if (shoe) {
     console.log(shoe);
-    
+
     return (
       <Container className={`start ${fade}`}>
-        { popUp ? <div className="alert alert-warning">2초이내 구매시 할인</div> : null}
+        {popUp ? <div className="alert alert-warning">2초이내 구매시 할인</div> : null}
         <Box>
           <ColorBtn color="yellow">ColorBtn</ColorBtn>
           <NewBtn color="red">NewBtn</NewBtn>
         </Box>
         <Row>
           <Col md="6">
-          <img src={'https://codingapple1.github.io/shop/shoes'+(shoe.id+1)+'.jpg'} width="100%" />
+            <img src={'https://codingapple1.github.io/shop/shoes' + (shoe.id + 1) + '.jpg'} width="100%" />
           </Col>
-          { warning ? <Warning>문자는 안돼</Warning> : null}
-          <input type="text" value={value} onChange={(e)=>{ setValue(e.target.value)
+          {warning ? <Warning>문자는 안돼</Warning> : null}
+          <input type="text" value={value} onChange={(e) => {
+            setValue(e.target.value)
           }} />
           <Col md="6">
-          <h4 className="pt-5">{shoe.title}</h4>
-          <p>{shoe.content}</p>
-          <p>{shoe.price}원</p>
-          <button className="btn btn-danger" onClick={()=>{
-            dispatch(addCart(shoe))
-          }}>주문하기</button> 
+            <h4 className="pt-5">{shoe.title}</h4>
+            <p>{shoe.content}</p>
+            <p>{shoe.price}원</p>
+            <button className="btn btn-danger" onClick={() => {
+              dispatch(addCart(shoe))
+            }}>주문하기</button>
           </Col>
         </Row>
         {/* 탭메뉴 */}
-        <Nav variant="tabs" defaultActiveKey="link-0" style={{marginTop:"10px"}}>
-        
+        <Nav variant="tabs" defaultActiveKey="link-0" style={{ marginTop: "10px" }}>
+
           <Nav.Item>
-            <Nav.Link eventKey="link-0" onClick={()=>{setTab(0)}}>버튼0</Nav.Link>
+            <Nav.Link eventKey="link-0" onClick={() => { setTab(0) }}>버튼0</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="link-1" onClick={()=>{setTab(1)}}>버튼1</Nav.Link>
+            <Nav.Link eventKey="link-1" onClick={() => { setTab(1) }}>버튼1</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link eventKey="link-2" onClick={()=>{setTab(2)}}>버튼2</Nav.Link>
+            <Nav.Link eventKey="link-2" onClick={() => { setTab(2) }}>버튼2</Nav.Link>
           </Nav.Item>
         </Nav>
         <TabContent tab={tab} shoe={shoe} ></TabContent>
-      </Container>    
-    ) 
+      </Container>
+    )
 
   } else {
     return <div>상품을 찾을 수 없습니다.</div>
@@ -119,21 +120,21 @@ export default function Detail (props) {
 
 // Component
 
-function TabContent({tab, shoe}){
+function TabContent({ tab, shoe }) {
 
   let [fade, setFade] = useState('')
-  useEffect(()=>{
+  useEffect(() => {
     let a = setTimeout(() => {
       setFade('end')
     }, 10);
-    return ()=>{
+    return () => {
       clearTimeout(a)
       setFade('')
     }
-  },[tab])
+  }, [tab])
   return (
     <div className={`start ${fade}`}>
-    {[<div>{shoe.title}</div>,<div>{shoe.content}</div>,<div>{shoe.price}</div>][tab]}
+      {[<div>{shoe.title}</div>, <div>{shoe.content}</div>, <div>{shoe.price}</div>][tab]}
     </div>
   )
 }
