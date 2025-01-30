@@ -859,3 +859,17 @@
   ```
 
 ---
+
+## localStorage로 만드는 최근 본 상품 기능 1..🔥
+
+- localStorage 사용법
+  - localStorage에서 data받아오기
+    - `localStorage.getItem("key")`
+    - `JSON.parse( localStorage.getItem("key") )`
+  - localStorage에 data 저장하기
+    - `localStorage.setItem("key", JSON.stringify( obj / arr ))`
+    - `localStorage.setItem("key", string / number)`
+  - localStorage에 data 삭제하기
+    - `localStorage.removeItem("key")`
+
+---
