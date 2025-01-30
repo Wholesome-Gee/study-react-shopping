@@ -4,6 +4,8 @@ import { Col, Container, Nav, Row, Tab } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components'
 import { Context1 } from "../App"
+import { useDispatch } from "react-redux";
+import { addCart } from "../store/cartSlice";
 
 let ColorBtn = styled.button`
   background : ${props=>props.color};
@@ -27,7 +29,7 @@ let Box = styled.div`
 
 export default function Detail (props) {
 
-  let {재고} = useContext(Context1)
+  // let {재고} = useContext(Context1)
   // useContext는 Context 해체함수.. [10,11,12]
 
   let shoes = props.shoes // [{},{},{}]
@@ -45,6 +47,8 @@ export default function Detail (props) {
   let [value,setValue] = useState("")
   let [tab,setTab] = useState(0)
   let [fade,setFade] = useState('')
+
+  let dispatch = useDispatch()
 
   useEffect(()=>{
     // '1'
@@ -86,7 +90,9 @@ export default function Detail (props) {
           <h4 className="pt-5">{shoe.title}</h4>
           <p>{shoe.content}</p>
           <p>{shoe.price}원</p>
-          <button className="btn btn-danger">주문하기</button> 
+          <button className="btn btn-danger" onClick={()=>{
+            dispatch(addCart(shoe))
+          }}>주문하기</button> 
           </Col>
         </Row>
         {/* 탭메뉴 */}

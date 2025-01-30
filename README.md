@@ -633,3 +633,166 @@
     ```
 
     - store.js에서 `import user from './store/userSlice'` 이런식으로 경로 지정
+
+## Redux 5 : 장바구니 기능 만들기 숙제 & 응용문제..🔥
+
+- Redux Toolkit으로 state저장하기
+
+  - /src/store/cartSlice.js 생성
+
+    - createSlice 선언
+    - name: slice name
+    - initialState: slice 초기화
+    - reducers: { slice 변경 함수 작성( state( 기존 state ), action( parameter, 사용시 action.payload ) ) }
+    - slice, slice 함수 export
+
+      - `export default slice`
+      - `export let { slice함수 } = slice.actions`
+
+      ```js
+      // src/store/cartSlice.js
+      import { createSlice } from "@reduxjs/toolkit";
+
+      // createSlice 생성
+      let cart = createSlice({
+        // name : slice name 생성
+        name: "cart",
+        // initialState : slice state 초기화
+        initialState: [
+          { id: 0, name: "White and Black", count: 2 },
+          { id: 2, name: "Grey Yordan", count: 1 },
+        ],
+        // reducers : slice 변경 함수 작성
+        reducers: {
+          // state : 기존 state, action : parameter ( 사용 시 action.payload 라고 작성 )
+          changeCount(state, action) {
+            // 조건식과 일치하는 배열 생성
+            let item = state.find((state) => state.id == action.payload.id);
+            item.count += 1;
+          },
+          addCart(state, action) {
+            let exist = state.find((state) => state.id == action.payload.id);
+            let schema = {
+              id: action.payload.id,
+              name: action.payload.title,
+              count: 1,
+            };
+
+            if (exist) {
+              exist.count += 1;
+            } else {
+              // 배열에 요소 추가
+              state.push(schema);
+            }
+          },
+          removeCart(state, action) {
+            // 조건식과 일치하는 배열의 index 추출
+            let index = state.findIndex((state) => state.id == action.payload);
+            if (index >= 0) {
+              // 배열의 index로부터 n개 요소 제거
+              state.splice(index, 1);
+            }
+          },
+        },
+      });
+
+      // slice export
+      export default cart;
+      export let { changeCount, addCart, filterCart } = cart.actions;
+      ```
+
+  - /src/store.js 생성
+
+    - configureStore 생성
+      - reducer : { storeName : storeName.reducer, ... }
+
+    ```js
+    // store.js
+    import { configureStore, createSlice } from "@reduxjs/toolkit";
+    import user from "./store/userSlice";
+    import cart from "./store/cartSlice";
+
+    export default configureStore({
+      reducer: {
+        cart: cart.reducer,
+        user: user.reducer,
+      },
+    });
+    ```
+
+  - Component에서 slice 사용
+
+    - Component 내에서 useSelector( state => state )로 state 불러오기
+    - Component 내에서 useDispatch( );로 store.js에 변경을 요청하는 dispatch함수 불러오기
+    -
+
+    ```js
+    import { useDispatch, useSelector } from "react-redux";
+    import { changeName, increase } from "../store/userSlice";
+    import { changeCount, removeCart } from "../store/cartSlice";
+
+    export default function Cart() {
+      // useSelector = state불러오기 / state.user라고 입력시 user state만 불러옴
+      let state = useSelector((state) => {
+        return state;
+      });
+      // useDispatch() = slice 변경함수 실행 명령어 / dispatch(slice변경함수())
+      let dispatch = useDispatch();
+
+      return (
+        <div>
+          <h6>
+            {state.user.name} {state.user.age}의 장바구니
+          </h6>
+          <button
+            onClick={() => {
+              dispatch(increase(10)); // increase함수에 10 파라미터 전달
+            }}
+          >
+            버튼
+          </button>
+
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">상품명</th>
+                <th scope="col">수량</th>
+                <th scope="col">변경하기</th>
+                <th scope="col">삭제하기</th>
+              </tr>
+            </thead>
+            <tbody>
+              {state.cart.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <th scope="row">{state.cart[index].id}</th>
+                    <td>{item.name}</td>
+                    <td>{item.count}</td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          dispatch(changeCount(item)); // changeCount 함수에 item 전달
+                        }}
+                      >
+                        +
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => {
+                          dispatch(removeCart(item)); // removeCart 함수에 item 전달
+                        }}
+                      >
+                        삭제하기
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    ```

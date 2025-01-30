@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { useDispatch, useSelector } from "react-redux"
 import { changeName, increase } from "../store/userSlice";
+import { changeCount, removeCart } from "../store/cartSlice";
 
 export default function Cart() {
 
@@ -24,6 +25,7 @@ export default function Cart() {
             <th scope="col">상품명</th>
             <th scope="col">수량</th>
             <th scope="col">변경하기</th>
+            <th scope="col">삭제하기</th>
           </tr>
         </thead>
         <tbody>
@@ -32,14 +34,17 @@ export default function Cart() {
               return (
                 <tr key= {index}>
                   <th scope="row">{state.cart[index].id}</th>
-                  <td>{state.cart[index].name}</td>
-                  <td>{state.cart[index].count}</td>
+                  <td>{item.name}</td>
+                  <td>{item.count}</td>
                   <td><button onClick={()=>{
-                    dispatch(changeName())
+                    dispatch(changeCount(item))
                   }}>+</button></td>
+                  <td><button onClick={()=>{
+                    //item.id로 일치하는 배열요소를 찾아서 해당 요소 삭제제
+                    dispatch(removeCart(item))
+                  }}>삭제하기</button></td>
                 </tr>
               )
-
             })
           }          
         </tbody>
